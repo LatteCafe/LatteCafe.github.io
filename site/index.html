@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>~/portfolio</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <main id="desktop">
+    <canvas id="live" aria-hidden="true"></canvas>
+    <aside class="widget" id="clockw" aria-label="Clock">
+      <svg viewBox="0 0 200 200" role="img" aria-label="Clock rings">
+        <g transform="rotate(-90 100 100)" fill="none">
+          <circle class="trk" cx="100" cy="100" r="92"/><circle class="arc" id="r-s" cx="100" cy="100" r="92" pathLength="100" stroke-dasharray="0 100"/>
+          <circle class="trk" cx="100" cy="100" r="82"/><circle class="arc" id="r-m" cx="100" cy="100" r="82" pathLength="100" stroke-dasharray="0 100"/>
+          <circle class="trk" cx="100" cy="100" r="72"/><circle class="arc" id="r-h" cx="100" cy="100" r="72" pathLength="100" stroke-dasharray="0 100"/>
+        </g>
+        <text id="w-time" x="100" y="108" text-anchor="middle">00:00</text>
+        <text id="w-sec" x="100" y="128" text-anchor="middle">00</text>
+      </svg>
+      <div class="w-day" id="w-day"></div>
+      <div class="w-date" id="w-date"></div>
+      <div class="w-bars">
+        <label>Day<i><b id="b-day"></b></i></label>
+        <label>Week<i><b id="b-week"></b></i></label>
+        <label>Year<i><b id="b-year"></b></i></label>
+      </div>
+    </aside>
+    <nav class="icons" aria-label="Desktop">
+      <button class="icon" data-app="cv"><b>CV</b>CV</button>
+      <button class="icon" data-app="cmd"><b>&gt;_</b>CMD</button>
+    </nav>
+  </main>
+
+  <div id="launcher" hidden>
+    <div class="lbox">
+      <input id="lq" placeholder="Search apps, projects, themes... (Esc to close)" aria-label="Launcher search" autocomplete="off">
+      <ul id="lres"></ul>
+    </div>
+  </div>
+
+  <footer id="panel">
+    <button id="start" title="Launcher (Ctrl+K)">Applications</button>
+    <div id="tasks"></div>
+    <nav id="tray" aria-label="Profiles"></nav>
+    <button id="themebtn" title="Switch theme" aria-label="Switch theme">◐</button>
+    <time id="clock"></time>
+  </footer>
+
+  <div id="boot">
+    <pre id="bootlog"></pre>
+    <form id="login" hidden>
+      <div class="av">G</div>
+      <h1>guest</h1>
+      <p>Portfolio OS 1.0</p>
+      <button type="submit">Log in</button>
+    </form>
+  </div>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

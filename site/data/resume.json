@@ -1,0 +1,49 @@
+{
+  "name": "Ethan Zhang",
+  "title": "T: (587) 664-0880 | E: ejl.zhang@mail.utoronto.ca | L: linkedin.com/in/ejlzhang",
+  "summary": "Actuarial Student with an interest in Computer programing and Data Analytics",
+  "email": "ejl.zhang@mail.utoronto.ca",
+  "location": "Toronto, ON",
+  "sections": [
+    {
+      "heading": "Education",
+      "items": [
+        {
+          "title": "Honors Bachelor of Science – Actuarial Science, Mathematics, Statistics",
+          "sub": "University of Toronto, Toronto, ON",
+          "date": "Graduating May 2029",
+          "text": ""
+        },
+        {
+          "title": "Alberta High School Diploma, International Baccalaureate Diploma",
+          "sub": "John G. Diefenbaker High School, Calgary, AB",
+          "date": "Graduated June 2025",
+          "text": ""
+        }
+      ]
+    },
+    {
+      "heading": "Experience",
+      "items": [
+        {
+          "title": "Web Developer",
+          "sub": "CaSure Seniors Association, Remote/Calgary, AB",
+          "date": "August 2026 - Present",
+          "text": "• Developed a website-based employee logger system for quality control purposes.\n• Implemented SQLite database functionality, .xlsx exports using openpyxl, and production\n  deployment using Gunicorn.\n• Designed basic login flows, check-in/check-out logic, and security checks.\n• Deployed to be accessible across a selection of browsers and hardware to maximize\n  compatibility for employees."
+        },
+        {
+          "title": "Information Officer",
+          "sub": "Elections Canada, Calgary, AB",
+          "date": "April 2025",
+          "text": "• Supported voters and staff in maintaining an accessible, welcoming, and inclusive polling\n  environment.\n• Followed protocol during the administration of the vote to ensure a lack of bias while\n  greeting and guiding voters and while assisting with the count.\n• Assisted those with mobility issues, disabilities, hearing loss, or a language barrier\n  through the voting process, guiding them to booths and notifying them of obstacles while\n  giving clear instructions."
+        },
+        {
+          "title": "Data Entry Clerk",
+          "sub": "Selina Pan Professional Corporation, Calgary, AB",
+          "date": "January 2024 – June 2025",
+          "text": "• Managed and organized Excel spreadsheets across multiple clients, adapting layouts and\n  workflows to individual accounting requirements.\n• Helped coordinate workloads across clients and accountants to meet strict deadlines and\n  ensure timely delivery."
+        }
+      ]
+    }
+  ]
+}

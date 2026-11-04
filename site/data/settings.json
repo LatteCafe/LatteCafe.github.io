@@ -1,0 +1,22 @@
+{
+  "wallpaper": "",
+  "accent": "#25dce9",
+  "bg": "#1b1d23",
+  "socials": [
+    {
+      "text": "GH",
+      "title": "GitHub",
+      "url": "https://github.com/LatteCafe"
+    },
+    {
+      "text": "in",
+      "title": "LinkedIn",
+      "url": "https://linkedin.com/in/ejlzhang"
+    },
+    {
+      "text": "@",
+      "title": "Email",
+      "url": "mailto:ejl.zhang@mail.utoronto.ca"
+    }
+  ]
+}

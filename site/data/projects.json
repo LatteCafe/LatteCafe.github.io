@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "title": "QED",
+    "label": "QED",
+    "icon": "img/icons/e9110f7a9ee0fd17a674a012dd6618c3.webp",
+    "description": "A free-to-run Discord bot for mathematics, built with Python, discord.py and SymPy.\n\n- Symbolic calculator: simplify, factor, expand, differentiate, integrate, limits, equation solving and matrix operations, with results typeset as LaTeX images. When a result can't be established, it says so rather than guessing.\n- Problem of the Day: a daily university-level problem with private hints, symbolic answer checking, streaks and a leaderboard, drawn from a 42-problem bank whose answers are each independently verified by tests.\n- Safe by design: user input is never eval'd. It's validated against an AST whitelist and run in a sandboxed worker process with timeout and memory limits.\n- Reliable scheduling: state lives in SQLite, so restarts, outages and daylight-saving changes never cause duplicate or missed posts.",
+    "tags": [
+      "demo"
+    ],
+    "live_url": "https://discord.com/oauth2/authorize?client_id=1560839534701322300",
+    "repo_url": "https://github.com/LatteCafe/MathBot",
+    "images": [
+      "img/projects/56cba9cf602e82d32483ac811dfd19bc.webp",
+      "img/projects/d517c6d8f6a40c2cd144bf77b5da72b5.webp",
+      "img/projects/2431ec5f80200842d7c496b1015692cf.webp"
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Discrete Fourier Transform Sketcher",
+    "label": "DFT Sketcher",
+    "icon": "img/icons/5c584a0c7d315e0723c6e5f83e843e8e.webp",
+    "description": "• Used HTML5's canvas API for the animation, allowing each frame to be drawn manually.\n• Completed independent research on the discrete Fourier transform and implemented it using\n  vanilla JavaScript Math libraries.\n• Used DOMParser and SVG DOM APIs to sample SVG paths accurately, and FileReader to enable\n  native file imports.",
+    "tags": [
+      "demo"
+    ],
+    "live_url": "https://lattecafe.github.io/DFT-Epicycles-Sketcher/",
+    "repo_url": "https://github.com/LatteCafe/DFT-Epicycles-Sketcher",
+    "images": [
+      "img/projects/39e5ee226a6ae63095dac0bf3d102e92.webp"
+    ]
+  }
+]

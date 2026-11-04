@@ -1,0 +1,9 @@
+{
+  "name": "portfolio-static",
+  "version": "2.0.0",
+  "private": true,
+  "engines": { "node": ">=20" },
+  "scripts": { "editor": "node editor/server.js --open" },
+  "dependencies": { "express": "^4.21.0", "multer": "^2.0.0" },
+  "optionalDependencies": { "sharp": "^0.33.5" }
+}
