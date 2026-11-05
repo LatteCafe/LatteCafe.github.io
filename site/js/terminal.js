@@ -2,7 +2,17 @@ import { api, themes, setTheme, curTheme } from './apps.js';
 import { setLive } from './live.js';
 
 const slug = (t) => t.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-const PUB = ['help', 'ls', 'cd', 'cat', 'open', 'pwd', 'whoami', 'date', 'echo', 'history', 'clear', 'neofetch', 'uname', 'theme', 'wallpaper', 'matrix', 'cowsay', 'fortune', 'sl', 'hire-me'];
+const PUB = ['help', 'ls', 'cd', 'cat', 'open', 'pwd', 'whoami', 'date', 'echo', 'history', 'clear', 'neofetch', 'uname', 'theme', 'wallpaper', 'matrix', 'cowsay', 'fortune', 'sl', 'snake', 'breakout', 'hire-me'];
+const APPS = ['cv', 'projects', 'cmd', 'games', 'homework', 'bin', 'snake', 'breakout'];
+const JOKES = {
+  vim: 'You opened vim. There is no escape. (Just kidding: Esc, then :q!)',
+  ':q': 'This is not vim. ...or is it?',
+  emacs: 'Emacs is a great operating system. It just lacks a good text editor.',
+  nano: 'A sensible choice.',
+  exit: 'There is no escape. Try closing the window like a normal person.',
+  git: 'fatal: not a git repository (or any of the parent directories): reality',
+  make: 'make: *** No rule to make target "sandwich". Stop.',
+};
 const FORTUNES = ['There is no place like 127.0.0.1.', 'It works on my machine.', 'A watched build never finishes.',
   'Have you tried turning it off and on again?', 'sudo make me a sandwich.', 'Premature optimization is the root of all fun.'];
 const cow = (t) => String.raw` ${'_'.repeat(t.length + 2)}
@@ -54,7 +64,7 @@ export function Term(body, A) {
     [p.live_url && 'Live: ' + p.live_url, p.repo_url && 'Source: ' + p.repo_url].filter(Boolean).join('\n'));
 
   const cmds = {
-    help: () => print('Commands:\n  ls, cd, cat, pwd      browse (try: cd projects, ls, cat <project>)\n  open <name>           cv, projects, cmd, or a project\n  theme [name]          ' + themes.join(' | ') + '\n  wallpaper stars|rain|off\n  hire-me               contact details\n  neofetch, uname, date, whoami, echo, history, clear\n  cowsay, fortune, matrix, sl\nTab completes. Ctrl+K opens the launcher.'),
+    help: () => print('Commands:\n  ls, cd, cat, pwd      browse (try: cd projects, ls, cat <project>)\n  open <name>           cv, projects, cmd, or a project\n  theme [name]          ' + themes.join(' | ') + '\n  wallpaper stars|rain|off\n  hire-me               contact details\n  neofetch, uname, date, whoami, echo, history, clear\n  cowsay, fortune, matrix, sl\n  snake, breakout        games (also in the Games folder)\nTab completes. Ctrl+K opens the launcher.'),
     clear: () => out.replaceChildren(),
     whoami: () => print(user),
     pwd: () => print('/home/' + user + (inProj() ? '/projects' : '')),
@@ -80,7 +90,7 @@ export function Term(body, A) {
     },
     open: ([w = '']) => {
       const p = plist.find((x) => slug(x.title) === w);
-      if (['cv', 'projects', 'cmd'].includes(w)) A[w]();
+      if (APPS.includes(w)) A[w]();
       else if (p) A.project(p);
       else return print(`open: ${w}: not found (try: cv, projects, cmd, or a project name)`, 'err');
       print('opening ' + w + '...');
@@ -93,6 +103,8 @@ export function Term(body, A) {
     cowsay: (a) => print(cow(a.join(' ') || 'moo')),
     fortune: () => print(FORTUNES[(Math.random() * FORTUNES.length) | 0]),
     sl: () => print(TRAIN),
+    snake: () => { A.snake(); print('launching snake...'); },
+    breakout: () => { A.breakout(); print('launching breakout...'); },
     'hire-me': async () => {
       const r = await api('/resume');
       print(r.email ? `Say hi: ${r.email}` : 'No email on file yet.'); A.cv();
@@ -109,6 +121,8 @@ export function Term(body, A) {
       : print(`${user} is not in the sudoers file. This incident will be reported.`, 'err')),
   };
 
+  Object.entries(JOKES).forEach(([k, v]) => { cmds[k] = () => print(v); });
+
   const tab = () => {
     const v = inp.value, parts = v.split(/\s+/), last = parts.pop();
     let pool;
@@ -117,7 +131,7 @@ export function Term(body, A) {
       const c = parts[0];
       pool = c === 'cat' ? ['resume.txt', ...(inProj() ? names() : ['projects/'])]
         : c === 'cd' ? ['projects', '..', '~']
-        : c === 'open' ? ['cv', 'projects', 'cmd', ...names()]
+        : c === 'open' ? [...APPS, ...names()]
         : c === 'theme' ? themes : c === 'wallpaper' ? ['stars', 'rain', 'off'] : c === 'ls' ? ['projects'] : [];
     }
     const m = pool.filter((x) => x.startsWith(last));

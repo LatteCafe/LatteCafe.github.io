@@ -5,6 +5,7 @@ import { setLive } from './live.js';
 import { Launcher } from './launcher.js';
 import { boot } from './boot.js';
 import './widget.js';
+import { Games, Homework, Bin, Snake, Breakout } from './fun.js';
 
 initTheme();
 boot();
@@ -13,6 +14,11 @@ const A = {
   cv: () => WM.open('cv', { title: 'CV', w: 720, h: 520, render: apps.cv }),
   projects: () => WM.open('projects', { title: 'Projects', w: 820, h: 520, render: apps.projects }),
   cmd: () => WM.open('cmd', { title: 'Terminal', w: 640, h: 400, flush: true, render: (b) => Term(b, A) }),
+  games: () => WM.open('games', { title: 'Games', w: 460, h: 300, render: (b) => Games(b, A) }),
+  homework: () => WM.open('homework', { title: 'Homework', w: 420, h: 300, render: Homework }),
+  bin: () => WM.open('bin', { title: 'Recycle Bin', w: 540, h: 400, render: Bin }),
+  snake: () => WM.open('snake', { title: 'Snake', w: 400, h: 450, flush: true, render: Snake }),
+  breakout: () => WM.open('breakout', { title: 'Breakout', w: 400, h: 510, flush: true, render: Breakout }),
   project: (p) => WM.open('proj-' + p.id, { title: p.title, w: 700, h: 500, render: (body) => projectView(p, body) }),
 };
 
@@ -51,6 +57,11 @@ const L = Launcher(() => [
   { label: 'Resume', hint: 'app', run: A.cv },
   { label: 'Projects', hint: 'app', run: A.projects },
   { label: 'Terminal', hint: 'app', run: A.cmd },
+  { label: 'Games', hint: 'folder', run: A.games },
+  { label: 'Snake', hint: 'game', run: A.snake },
+  { label: 'Breakout', hint: 'game', run: A.breakout },
+  { label: 'Homework', hint: 'folder', run: A.homework },
+  { label: 'Recycle Bin', hint: 'folder', run: A.bin },
   ...plist.map((p) => ({ label: p.label || p.title, hint: 'project', run: () => A.project(p) })),
   ...themes.map((t) => ({ label: 'Theme: ' + t, hint: 'theme', run: () => setTheme(t) })),
   ...['stars', 'rain', 'off'].map((m) => ({ label: 'Wallpaper: ' + m, hint: 'wallpaper', run: () => setLive({ mode: m }) })),

@@ -129,3 +129,17 @@ article{margin:10px 0 10px 14px}
 #login h1{font-weight:300;margin:6px 0 0;font-size:22px}
 #login p{margin:0;color:#8b90a0;font-size:12px}
 #login button{margin-top:8px;padding:8px 26px;border:0;border-radius:99px;background:var(--accent);color:#fff;cursor:pointer}
+
+/* desktop jokes + games */
+.icon.bin{position:absolute;right:18px;bottom:18px;z-index:2}
+.files{display:flex;flex-wrap:wrap;gap:12px;align-content:flex-start;min-height:120px}
+.file{width:104px;padding:8px 4px;background:none;border:0;border-radius:8px;text-align:center;cursor:pointer;color:var(--fg);font-size:12px;overflow-wrap:anywhere}
+.file:hover,.file.on{background:var(--panel)}
+.file b{display:block;font-size:30px;font-weight:400}
+.tools{display:flex;gap:8px;margin-bottom:12px}
+.empty{display:grid;place-items:center;min-height:170px;text-align:center;color:var(--mut);cursor:pointer}
+.bigicon{font-size:54px}
+.statusbar{margin-top:12px;padding-top:8px;border-top:1px solid var(--bd);color:var(--mut);min-height:2.6em}
+.game{display:flex;flex-direction:column;align-items:center;gap:8px;padding:12px;background:#0d0e11;min-height:100%}
+.hud{align-self:stretch;display:flex;justify-content:space-between;color:var(--mut);font:12px var(--mono)}
+.game canvas{max-width:100%;border-radius:8px;background:var(--panel);touch-action:none;cursor:pointer}
