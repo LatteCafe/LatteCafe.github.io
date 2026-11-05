@@ -3,6 +3,7 @@
 [data-theme=gruvbox]{--bg:#282828;--accent:#fabd2f;--panel:#1d2021;--win:#32302f;--fg:#ebdbb2;--mut:#a89984;--bd:#504945}
 [data-theme=dracula]{--bg:#282a36;--accent:#bd93f9;--panel:#1e1f29;--win:#343746;--fg:#f8f8f2;--mut:#8f93b0;--bd:#44475a}
 [data-theme=catppuccin]{--bg:#1e1e2e;--accent:#cba6f7;--panel:#181825;--win:#313244;--fg:#cdd6f4;--mut:#9399b2;--bd:#45475a}
+[data-theme=love]{--bg:#4a1a35;--accent:#ff5c9d;--panel:#36122a;--win:#5a2243;--fg:#ffe9f2;--mut:#e3a9c4;--bd:#8a3b69}
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 html,body{height:100%;margin:0;background:#000;color:var(--fg);font:14px/1.5 system-ui,sans-serif;overflow:hidden}
@@ -143,3 +144,4 @@ article{margin:10px 0 10px 14px}
 .game{display:flex;flex-direction:column;align-items:center;gap:8px;padding:12px;background:#0d0e11;min-height:100%}
 .hud{align-self:stretch;display:flex;justify-content:space-between;color:var(--mut);font:12px var(--mono)}
 .game canvas{max-width:100%;border-radius:8px;background:var(--panel);touch-action:none;cursor:pointer}
+.term .love{color:var(--accent)}

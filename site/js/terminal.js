@@ -3,6 +3,7 @@ import { setLive } from './live.js';
 
 const slug = (t) => t.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const PUB = ['help', 'ls', 'cd', 'cat', 'open', 'pwd', 'whoami', 'date', 'echo', 'history', 'clear', 'neofetch', 'uname', 'theme', 'wallpaper', 'matrix', 'cowsay', 'fortune', 'sl', 'snake', 'breakout', 'hire-me'];
+const KEY = 'MDgwNjA3'; // only lightly hidden: anyone reading the page source could decode it
 const APPS = ['cv', 'projects', 'cmd', 'games', 'homework', 'bin', 'snake', 'breakout'];
 const JOKES = {
   vim: 'You opened vim. There is no escape. (Just kidding: Esc, then :q!)',
@@ -39,19 +40,19 @@ export function Term(body, A) {
   row.className = 'row'; row.append(ps, inp);
   body.replaceChildren(out, row);
 
-  let user = 'guest', cwd = '~', mode = 'cmd', hist = [], hi = 0, plist = [];
+  let user = 'guest', who = 'admin', cwd = '~', mode = 'cmd', hist = [], hi = 0, plist = [];
   const load = () => api('/projects').then((l) => (plist = l)).catch(() => {});
   const sync = () => (body.isConnected ? load() : document.removeEventListener('projects-changed', sync));
   document.addEventListener('projects-changed', sync); load();
   const names = () => plist.map((p) => slug(p.title));
   const inProj = () => cwd === '~/projects';
-  const prompt = () => { ps.textContent = mode === 'pass' ? '[sudo] password for admin: ' : `${user}@portfolio:${cwd}$ `; };
+  const prompt = () => { ps.textContent = mode === 'pass' ? `[sudo] password for ${who}${who === 'celina' ? ' (hint: MMDDYY)' : ''}: ` : `${user}@portfolio:${cwd}$ `; };
   const print = (t = '', c = '') => {
     const d = document.createElement('div'); d.className = c; d.textContent = t; out.append(d);
     body.scrollTop = body.scrollHeight;
   };
   let tries = 0;
-  const startLogin = () => { tries = 0; mode = 'pass'; inp.type = 'password'; prompt(); };
+  const startLogin = (name = 'admin') => { tries = 0; who = name; mode = 'pass'; inp.type = 'password'; prompt(); };
   const printResume = async () => {
     const r = await api('/resume');
     print(`${r.name} - ${r.title}\n${r.summary}\n${[r.email, r.location].filter(Boolean).join(' | ')}`);
@@ -96,7 +97,7 @@ export function Term(body, A) {
       print('opening ' + w + '...');
     },
     theme: ([n]) => (n
-      ? (setTheme(n) ? print('theme: ' + n) : print(`theme: unknown "${n}". Available: ${themes.join(', ')}`, 'err'))
+      ? (themes.includes(n) && setTheme(n) ? print('theme: ' + n) : print(`theme: unknown "${n}". Available: ${themes.join(', ')}`, 'err'))
       : print(`current: ${curTheme()}\navailable: ${themes.join(', ')}`)),
     wallpaper: ([m]) => (['stars', 'rain', 'off'].includes(m) ? (setLive({ mode: m }), print('wallpaper: ' + m)) : print('usage: wallpaper stars|rain|off', 'err')),
     matrix: () => { setLive({ mode: 'rain' }); print('Wake up, guest...\n(run "wallpaper stars" to go back)'); },
@@ -116,7 +117,7 @@ export function Term(body, A) {
       print(info.map((l, i) => (logo[i] ?? '').padEnd(10) + l).join('\n'));
     },
     // easter egg: not listed in help or tab completion
-    sudo: (a) => (a[0] === 'admin' ? startLogin()
+    sudo: (a) => (['admin', 'celina'].includes(a[0]) ? startLogin(a[0])
       : /^rm/.test(a.join(' ')) ? print('Nice try. This incident will be reported.', 'err')
       : print(`${user} is not in the sudoers file. This incident will be reported.`, 'err')),
   };
@@ -143,6 +144,9 @@ export function Term(body, A) {
   };
 
   inp.onkeydown = async (e) => {
+    if (mode === 'pass' && (e.key === 'Escape' || (e.ctrlKey && e.key === 'c'))) {
+      e.preventDefault(); mode = 'cmd'; inp.type = 'text'; inp.value = ''; print('^C'); return prompt();
+    }
     if (e.key === 'Tab') { e.preventDefault(); if (mode === 'cmd') tab(); return; }
     if (e.key === 'ArrowUp' && mode === 'cmd') { hi = Math.max(0, hi - 1); inp.value = hist[hi] || ''; e.preventDefault(); return; }
     if (e.key === 'ArrowDown' && mode === 'cmd') { hi = Math.min(hist.length, hi + 1); inp.value = hist[hi] || ''; return; }
@@ -151,6 +155,13 @@ export function Term(body, A) {
 
     if (mode === 'pass') {
       print(ps.textContent);
+      if (who === 'celina') {
+        if (btoa(v.replace(/\D/g, '')) !== KEY) return print('Sorry, try again. (Ctrl+C to cancel)', 'err');
+        mode = 'cmd'; inp.type = 'text'; user = 'celina';
+        setTheme('love'); setLive({ mode: 'hearts' });
+        print('i love u more', 'love');
+        return prompt();
+      }
       if (++tries < 3) return print('Sorry, try again.', 'err');
       mode = 'cmd'; inp.type = 'text'; print('sudo: 3 incorrect password attempts', 'err');
       return prompt();

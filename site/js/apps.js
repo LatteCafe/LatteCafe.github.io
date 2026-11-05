@@ -10,11 +10,14 @@ export const api = async (p) => {
 export const el = (t, p = {}, ...k) => { const e = Object.assign(document.createElement(t), p); e.append(...k); return e; };
 
 export const themes = ['default', 'nord', 'gruvbox', 'dracula', 'catppuccin'];
+const secretThemes = ['love']; // reachable only via the terminal easter egg
 let S = {};
 const root = document.documentElement;
 export const curTheme = () => root.dataset.theme || 'default';
+let chosen = false; // true once the visitor picked a theme themselves
 export function setTheme(n, save = true) {
-  if (!themes.includes(n)) return false;
+  if (!themes.includes(n) && !secretThemes.includes(n)) return false;
+  if (save) chosen = true;
   root.dataset.theme = n;
   if (save) try { localStorage.setItem('theme', n); } catch {}
   // The admin's custom colors only apply to the default theme.
@@ -22,9 +25,9 @@ export function setTheme(n, save = true) {
   else { root.style.removeProperty('--accent'); root.style.removeProperty('--bg'); }
   return true;
 }
-export function initTheme() { let t = null; try { t = localStorage.getItem('theme'); } catch {} setTheme(t || 'default', false); }
+export function initTheme() { let t = null; try { t = localStorage.getItem('theme'); } catch {} chosen = !!t; setTheme(t || 'default', false); }
 export function applySettings(s) {
-  S = s; setTheme(curTheme(), false);
+  S = s; setTheme(!chosen && themes.includes(s.theme) ? s.theme : curTheme(), false);
   document.getElementById('desktop').style.backgroundImage = s.wallpaper ? `url("${s.wallpaper}")` : 'none';
   setLive({ image: !!s.wallpaper });
 }
